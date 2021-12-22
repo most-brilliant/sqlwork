@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>首页</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        function personInfo() {
+            if (window.XMLHttpRequest) {
+                // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                // IE6, IE5 浏览器执行
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    document.getElementById("personInfo").innerHTML = xmlhttp.responseText;
+                }
+            }
+            // xmlhttp.open("GET", "query.php?q=" + str, true);
+            // xmlhttp.send();
+            xmlhttp.open("POST", "personInfo.php", true);
+            xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xmlhttp.send();
+        }
+
+        // function copyID(i) {
+        //     var range = document.createRange();
+
+        //     // 创建 getSelection 方法对象，表示用户选择的文本范围或光标的当前位置。
+        //     var selection = window.getSelection();
+
+        //     // 通过 selection.removeAllRanges() 方法清除选择范围
+        //     selection.removeAllRanges();
+
+        //     // selectNodeContents 方法选择 contentHolder 子节点的内容
+        //     // 这里指 p 标签中的文本节点内容
+        //     var bookID = "bookID" + i;
+
+        //     range.selectNodeContents(bookID);
+
+        //     // 一个区域（Range）对象将被增加到选区（Selection）当中。
+        //     // 将刚刚选中的 p 标签文本添加到 selection 
+        //     selection.addRange(range);
+
+        //     // execCommand 中的 copy 方法拷贝刚刚选到的内容
+        //     document.execCommand('copy');
+
+        //     // 重新初始化区域对象 range
+        //     selection.removeAllRanges();
+        //     window.alert("图书编号已复制至剪贴板");
+        //     window.location = "/sqlwork/borrow.html";
+        // }
+
+        // function copyID(i) {
+        //     var bookID = document.getElementById("bookID" + i).innerHTML;
+        //     alert(bookID);
+        //     bookID.select();
+        //     document.execCommand('Copy');
+        // }
+    </script>
+    <script type="text/javascript">
+        // 复制的方法
+        function copyText(text, callback) { // text: 要复制的内容， callback: 回调
+            var tag = document.createElement('input');
+            tag.setAttribute('id', 'cp_hgz_input');
+            tag.value = text;
+            document.getElementsByTagName('body')[0].appendChild(tag);
+            document.getElementById('cp_hgz_input').select();
+            document.execCommand('copy');
+            document.getElementById('cp_hgz_input').remove();
+            if (callback) {
+                callback(text)
+            }
+        }
+
+        // 点击按钮调用复制
+        function copyID(i) {
+            var bookID = document.getElementById("bookID" + i).innerHTML;
+            bookID = bookID.replace(/&nbsp;/g, '');
+            copyText(bookID, function () {
+                console.log('复制成功')
+            })
+            window.alert("图书编号已复制至剪贴板");
+            window.location = 'return.html';
+        }
+    </script>
+</head>
+
+<body onload="personInfo()">
+    <div class="container">
+        <h1 style="text-align: center;" class="display-3">欢迎来到图书馆管理系统</h1>
+        <hr>
+        <ul class="nav justify-content-center nav-pills">
+            <li class="nav-item">
+                <a class="nav-link active" href="Index.html">主页</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="borrow.html">借书</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="return.html">还书</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="query.html">查询书目</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="sqlquery.html">高级查询</a>
+            </li>
+        </ul>
+    </div>
+    <br />
+    <br />
+    <div id="personInfo"></div>
+    <br />
+    <div style="text-align: left;"><button class="btn btn-dark"
+            onclick="window.location='changePassword.html'">修改密码</button></div>
+</body>
+
+</html>

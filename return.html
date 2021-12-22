@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>图书归还</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        function showReturnBook(str) {
+            if (str == "") {
+                document.getElementById("thebook").innerHTML = "";
+                return;
+            }
+            if (window.XMLHttpRequest) {
+                // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                // IE6, IE5 浏览器执行
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    document.getElementById("thebook").innerHTML = xmlhttp.responseText;
+                }
+            }
+            // xmlhttp.open("GET", "query.php?q=" + str, true);
+            // xmlhttp.send();
+            xmlhttp.open("POST", "return.php", true);
+            xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xmlhttp.send("q=" + str);
+        }
+
+        function returnBook() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("thebook").innerHTML = "";
+                document.getElementById("thebook").innerHTML = xmlhttp.responseText;
+            }
+
+            xmlhttp.open("POST", "return_OK.php", true);
+            xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xmlhttp.send();
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1 style="text-align: center;" class="display-3">图书归还</h1>
+        <hr>
+        <ul class="nav justify-content-center nav-pills">
+            <li class="nav-item">
+                <a class="nav-link" href="Index.html">主页</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="borrow.html">借书</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="return.html">还书</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="query.html">查询书目</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="sqlquery.html">高级查询</a>
+            </li>
+        </ul>
+    </div>
+    <br />
+    <div class="container mt-3">
+        <p class="text-dark" style="text-align: center;">请输入您所归还图书的编号</p>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="请输入图书编号" name="bookID" id="return_bookID" spellcheck="false"/>
+            <div class="input-group-append">
+                <button class="btn btn-success" type="submit" name="bookID_sub"
+                    onclick="showReturnBook(document.getElementById('return_bookID').value)">确定</button>
+            </div>
+        </div>
+    </div>
+    <div id="thebook"></div>
+</body>
+
+</html>

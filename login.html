@@ -1,0 +1,64 @@
+<html>
+
+<head>
+    <title>登录</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- <script>
+        // function Login() {
+        //     if (window.XMLHttpRequest) {
+        //         // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行
+        //         xmlhttp = new XMLHttpRequest();
+        //     } else {
+        //         // IE6, IE5 浏览器执行
+        //         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        //     }
+        //     xmlhttp.onreadystatechange = function () {
+        //         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        //             document.getElementById("checkInfo").innerHTML = xmlhttp.responseText;
+        //         }
+        //     }
+        //     // xmlhttp.open("GET", "query.php?q=" + str, true);
+        //     // xmlhttp.send();
+        //     xmlhttp.open("POST", "login.php", true);
+        //     xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        //     xmlhttp.send();
+        // }
+    </script> -->
+</head>
+
+<body>
+    <br />
+    <br />
+    <div class="container mt-3">
+        <div class="container">
+            <h1 class="display-1" style="text-align: center;">图书馆管理系统</h1>
+            <br />
+            <h2 class="display-4" style="text-align: center;">Login</h2>
+        </div>
+        <br />
+        <form action="login.php" method="post">
+            <!-- 用表单提交 -->
+            <h3 class="font-weight-bold">用户名：</h3>
+            <div class="input-group mb-3">
+                <input id="username" name="username" class="form-control" type="text" placeholder="请输入用户名" />
+            </div>
+            <h3 class="font-weight-bold">密码：</h3>
+            <div class="input-group mb-3">
+                <input id="password" name="password" class="form-control" type="password" placeholder="请输入密码" />
+            </div>
+            <br />
+            <div style="text-align: center;">
+                <button type="submit" class="btn btn-dark" name="login_sub">登录</button>
+            </div>
+        </form>
+    </div>
+    <div id="checkInfo"></div>
+</body>
+
+</html>

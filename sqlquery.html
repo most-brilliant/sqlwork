@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>图书查询</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        function getResult() {
+            if (window.XMLHttpRequest) {
+                // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                // IE6, IE5 浏览器执行
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    document.getElementById("result").innerHTML = xmlhttp.responseText;
+                }
+            }
+            // xmlhttp.open("GET", "query.php?q=" + str, true);
+            // xmlhttp.send();
+            xmlhttp.open("POST", "sqlquery.php", true);
+            xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            str = document.getElementById("sqlquery").value;
+            str = str.replace(/\+/, "%2B");
+            xmlhttp.send("sqlquery=" + str);
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1 style="text-align: center;" class="display-3">书目查询</h1>
+        <hr>
+        <ul class="nav justify-content-center nav-pills">
+            <li class="nav-item">
+                <a class="nav-link" href="Index.html">主页</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="borrow.html">借书</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="return.html">还书</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="query.html">查询书目</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="sqlquery.html">高级查询</a>
+            </li>
+        </ul>
+    </div>
+    <br />
+    <div class="container">
+        <div class="form-group">
+            <label for="sqlquery" class="font-weight-bold" style="font-size: larger;">SQL查询语句:</label>
+            <textarea class="form-control" rows="5" id="sqlquery" placeholder="请输入SQL查询语句" spellcheck="false"
+                name="sqlquery"></textarea>
+        </div>
+        <div style="text-align: center;">
+            <button type="submit" class="btn btn-dark" name="login_sub" onclick="getResult()">执行</button>
+        </div>
+    </div>
+    <br /><br />
+    <div id="result"></div>
+    <!-- <h3>请注意:</h3><br />
+    <p>1.普通用户默认只有books表的select权限，如欲获取更多权限请联系管理员</p>
+    <p>2.请尽量在执行结果展示界面选择回退方式回到本界面而非点击执行界面的按钮，这样可以保存你所写的语句</p>
+    <p>3.更多问题请咨询管理员</p> -->
+</body>
+
+</html>
